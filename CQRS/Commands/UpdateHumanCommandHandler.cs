@@ -1,5 +1,6 @@
 ﻿namespace DataManager.CQRS.Commands
 {
+    // TODO: zaktualizuj o pole które dodałes w Humans.cs 
     public class UpdateHumanCommandHandler // : IRequest<Human>
     {
         public int Id { get; set; }

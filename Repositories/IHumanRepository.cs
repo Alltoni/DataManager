@@ -1,7 +1,6 @@
-﻿using DataManager.Models;
-
-namespace DataManager.Repositories
+﻿namespace DataManager.Repositories
 {
+    // TODO: jak zmienisz lokalizacje Human.cs do Modelu lub go usuniesz to pamietaj aby zaktualizowac tutaj referencje do nich (bedize brakowal USING namespace) (na Human kliknij, potem CTRL + . )
     public interface IHumanRepository
     {
         ICollection<Human> GetHumans();
