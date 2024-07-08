@@ -9,5 +9,6 @@ namespace DataManager.Repositories
         Human CreateHuman(Human human);
         Human UpdateHuman(Human human);
         void DeleteHumanById(int id);
+        Task<Human> CreateHuman(Task human);
     }
 }

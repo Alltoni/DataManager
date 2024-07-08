@@ -9,6 +9,11 @@ namespace DataManager.Repositories
             throw new NotImplementedException();
         }
 
+        public Task<Human> CreateHuman(Task human)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DeleteHumanById(int id)
         {
             throw new NotImplementedException();
