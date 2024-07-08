@@ -10,13 +10,14 @@
             List<Human> humans = new List<Human>();
             while (true)
             {
+                // TODO: zastanów się jak to można przerobić np na string buildera, tablice stringów, liste lub jakas kolekcje (pokombinuj)
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("1 - dodaj na liste");
-                Console.WriteLine("2 - usuń z listy");
-                Console.WriteLine("3 - wyświetl liste");
-                Console.WriteLine("4 - wyczyść liste");
-                Console.WriteLine("5 - zamknij program");
-                Console.WriteLine("");
+                Console.WriteLine(value: "1 - dodaj na liste");
+                Console.WriteLine(value: "2 - usuń z listy");
+                Console.WriteLine(value: "3 - wyświetl liste");
+                Console.WriteLine(value: "4 - wyczyść liste");
+                Console.WriteLine(value: "5 - zamknij program");
+                Console.WriteLine(value: "");
 
                 string? input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input))
