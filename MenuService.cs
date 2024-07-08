@@ -1,8 +1,10 @@
 ﻿namespace DataManager
 {
+    // TODO: jak zmienisz lokalizacje Human.cs do Modelu lub go usuniesz to pamietaj aby zaktualizowac tutaj referencje do nich (bedize brakowal USING namespace) (na Human kliknij, potem CTRL + . )
     internal class MenuService
     {
-
+        // TODO: warto to przeniesc do folderu Services i dodać do niego Interface z prefixem "I" + NazwaKlasy
+        // Przenieść tam dla czystosci zeby latwiej to bylo utrzymywac, a utworzenie interfejsu w celu utrzymania  "design patternu"
         public static void StartMenu()
         {
             List<Human> humans = new List<Human>();
@@ -35,6 +37,7 @@
                 }
                 else
                 {
+                    // TODO: poczytaj sobie o Enumach (możesz np zamiast case 1: zrobic case Add, gdzie bedzie to przypisane w enumie jako Add = 1, a w tmy miejscu zastanów sie nad rzutowaniem tego enuma ktoryy wykorzystasz na int'a
                     switch (userNumber)
                     {
                         case 1:
@@ -50,6 +53,7 @@
 
                             }
 
+                            // TODO: ten == false poniżej jest zbedny troszke, zastanów się i napisz do mnie jak można to zrobić czysciej lub ladniej
                             if (IdIsOnList(idNumber, humans) == false)
                             {
                                 Console.Write("Podaj imię: ");
@@ -100,6 +104,7 @@
                         case 3:
                             foreach (var human in humans)
                             {
+                                // TODO: zastanów się nad użyciem @ prz tym WriteLine poniżej... np @$"twojTekst"
                                 Console.WriteLine($"ID: " +
                                     $"{human.Id}, " +
                                     $"Name: {human.Name}, " +

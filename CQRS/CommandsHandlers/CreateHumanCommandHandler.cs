@@ -3,6 +3,7 @@ using DataManager.Repositories;
 
 namespace DataManager.CQRS.CommandsHandlers
 {
+    // TODO: jak zmienisz lokalizacje Human.cs do Modelu lub go usuniesz to pamietaj aby zaktualizowac tutaj referencje do nich (bedize brakowal USING namespace) (na Human kliknij, potem CTRL + . )
     public class CreateHumanCommandHandler : IRequestHandler<CreateHumanCommand, Human>
     {
         private readonly IHumanRepository _repository;

@@ -1,5 +1,6 @@
 ﻿namespace DataManager
 {
+    // TODO: w folderze Models, posiadamy klase Human.cs. Możesz przenieść implementacje tego do Human, ale bardziej zalecałbym trzymanie samych propertiesów w Human.cs bez konstruktora (jak uwazasz)
     public class Human
     {
         public int Id { get; set; }
