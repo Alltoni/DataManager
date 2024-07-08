@@ -42,6 +42,7 @@
                     switch (userNumber)
                     {
                         case 1:
+                            // TODO: Id mozesz ogarnac w taki sposób, że pobierasz liste juz istniejac, bierzesz najwyzszy ID i robisz dla niego inkrementacje (najepiej oddzielna metoda lub klasa)
                             Console.Write("Podaj Id: ");
                             string? idInput = Console.ReadLine();
                             int idNumber;
