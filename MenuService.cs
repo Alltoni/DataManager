@@ -1,12 +1,4 @@
-﻿using DataManager.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Channels;
-using System.Threading.Tasks;
-
-namespace DataManager
+﻿namespace DataManager
 {
     internal class MenuService
     {
@@ -24,12 +16,20 @@ namespace DataManager
                 Console.WriteLine("5 - zamknij program");
                 Console.WriteLine("");
 
-                string input = Console.ReadLine();
+                string? input = Console.ReadLine();
+                if (string.IsNullOrEmpty(input))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(value: $"Wprowadzony znak jest pusty lub nieprawidłowy.");
+                    // TODO: wstaw rekurencje, do tej metody, zeby wrocilo do wyobur menu
+                }
+
+
                 int userNumber;
 
                 if (!int.TryParse(input, out userNumber) || userNumber < 1 || userNumber > 5)
                 {
-                    Console.ForegroundColor= ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Invalid input!\n");
 
                 }
@@ -39,27 +39,31 @@ namespace DataManager
                     {
                         case 1:
                             Console.Write("Podaj Id: ");
-                            string idInput = Console.ReadLine();
+                            string? idInput = Console.ReadLine();
                             int idNumber;
                             if (!int.TryParse(idInput, out idNumber))
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("Invalid input!\n");
                                 continue;
-                                
+
 
                             }
 
                             if (IdIsOnList(idNumber, humans) == false)
                             {
                                 Console.Write("Podaj imię: ");
-                                string name = Console.ReadLine();
+                                string? name = Console.ReadLine();
+                                if (string.IsNullOrEmpty(name))
+                                    throw new ArgumentNullException(name);
 
                                 Console.Write("Podaj nazwisko: ");
-                                string surname = Console.ReadLine();
+                                string? surname = Console.ReadLine();
+                                // TODO: add exception or validation
 
                                 Console.Write("Podaj opis (opcjonalny): ");
                                 string destription = Console.ReadLine();
+                                // TODO: add (exception || validation) && make variable above nullable
 
                                 humans.Add(new Human(idNumber, name, surname, destription));
                             }
@@ -72,7 +76,11 @@ namespace DataManager
                         case 2:
                             Console.Write("Podaj Id osoby, która chcesz usunąć z listy: ");
                             string deleteInput = Console.ReadLine();
+                            // TODO: add (exception || validation) && make variable above nullable
+
                             int idToDelete = int.Parse(deleteInput);
+                            // TODO: add (exception || validation) && make variable above nullable
+
 
                             foreach (var human in humans)
                             {
@@ -115,10 +123,6 @@ namespace DataManager
                     }
                 }
             }
-
-
-
-
         }
 
         private static bool IdIsOnList(int idNumber, List<Human> humans)
