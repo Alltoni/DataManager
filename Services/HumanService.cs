@@ -1,36 +1,64 @@
-﻿namespace DataManager.Services
+﻿using DataManager.Models;
+using DataManager.Repositories;
+namespace DataManager.Services
+
 {
-    // TODO: utwórz konstruktor, wstrzyknij do niego IHumanRepository, utworz pole (field) dla ktorego przypiszesz to. Jak coś yptaj
     public class HumanService : IHumanService
     {
-        // TODO: utwórz ciało humana lub przypisz z jakas logika ktora uwazasz za słuszna (walidacje itp itd) potem przekaz to ciało do metody uzywajac wstrzyknietego interfejsu _repository.CreateHuman(ciałoHumana)
-        public Human CreateHuman(Human human)
+        private readonly IHumanRepository _repository;
+
+        public HumanService(IHumanRepository repository)
         {
-            throw new NotImplementedException();
+            _repository = repository;
         }
 
-        // TODO: pobierz rekord z repozytorium o konkretnym id po czym go usuń
+        public Human AddHuman(Human human)
+        {
+            if (human == null)
+            {
+                throw new ArgumentNullException(nameof(human));
+            }
+
+            if (string.IsNullOrWhiteSpace(human.Name) || string.IsNullOrWhiteSpace(human.Surname))
+            {
+                throw new ArgumentException("Name and Surname cannot be empty");
+            }
+
+            return _repository.AddHuman(human);
+
+        }
+
+        // DONE: pobierz rekord z repozytorium o konkretnym id po czym go usuń
         public void DeleteHumanById(int id)
         {
-            throw new NotImplementedException();
+            _repository.DeleteHumanById(id);
         }
 
-        // TODO: pobierz konkretny rekord o takim ID
+        // DONE: pobierz konkretny rekord o takim ID
         public Human GetHumanById(int id)
         {
-            throw new NotImplementedException();
+            return _repository.GetHumanById(id);
         }
 
-        // TODO: pobierz wszystkich ludzi skurwysynów
+        // DONE: pobierz wszystkich ludzi skurwysynów
         public ICollection<Human> GetHumans()
         {
-            throw new NotImplementedException();
+            return _repository.GetHumans();
         }
 
-        // TODO: zaktualizuj czlwoeiczka
+        // DONE: zaktualizuj czlwoeiczka
         public Human UpdateHuman(Human human)
         {
-            throw new NotImplementedException();
+            return _repository.UpdateHuman(human);
+        }
+
+        public void ClearHumans()
+        {
+            var humans = _repository.GetHumans().ToList();
+            foreach (var human in humans)
+            {
+                _repository.DeleteHumanById(human.Id);
+            }
         }
     }
 }
