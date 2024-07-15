@@ -1,6 +1,6 @@
 ﻿namespace DataManager.Services
 {
-    internal interface IMenuService
+     public interface IMenuService
     {
     }
 }

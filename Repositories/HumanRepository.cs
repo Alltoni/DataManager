@@ -43,6 +43,13 @@ namespace DataManager.Repositories
         public Human UpdateHuman(Human human)
         {
             var existingHuman = GetHumanById(human.Id);
+
+            if (existingHuman == null)
+            {
+                throw new Exception(message: $"Human with this id already exists.");
+            }
+
+
             if (existingHuman != null)
             {
                 existingHuman.Name = human.Name;

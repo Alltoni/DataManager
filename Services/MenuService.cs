@@ -5,7 +5,7 @@ using System.Text;
 namespace DataManager.Services
 {
     // DONE: jak zmienisz lokalizacje Human.cs do Modelu lub go usuniesz to pamietaj aby zaktualizowac tutaj referencje do nich (bedize brakowal USING namespace) (na Human kliknij, potem CTRL + . )
-    internal class MenuService
+    internal class MenuService : IMenuService
     {
         // DONE: warto to przeniesc do folderu Services i dodać do niego Interface z prefixem "I" + NazwaKlasy
         // Przenieść tam dla czystosci zeby latwiej to bylo utrzymywac, a utworzenie interfejsu w celu utrzymania  "design patternu"
