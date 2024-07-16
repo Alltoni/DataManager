@@ -1,6 +1,6 @@
-﻿namespace DataManager.Services
+﻿namespace DataManager.Services;
+
+// TODO: uzupelnić o metody
+public interface IMenuService
 {
-     public interface IMenuService
-    {
-    }
 }

@@ -1,64 +1,48 @@
 ﻿using DataManager.Models;
 using DataManager.Repositories;
-namespace DataManager.Services
 
+namespace DataManager.Services;
+
+public class HumanService : IHumanService
 {
-    public class HumanService : IHumanService
+    private readonly IHumanRepository _repository;
+
+    public HumanService(IHumanRepository repository)
+        => (_repository) = (repository);
+
+    public Human AddHuman(Human human)
     {
-        private readonly IHumanRepository _repository;
+        if (human == null)
+            throw new ArgumentNullException(nameof(human));
 
-        public HumanService(IHumanRepository repository)
+        if (string.IsNullOrWhiteSpace(human.Name))
+            throw new ArgumentException(message: $"Name cannot be empty");
+
+        if (string.IsNullOrEmpty(human.Surname))
+            throw new ArgumentException(message: $"Surname cannot be empty.");
+
+        return _repository.AddHuman(human);
+    }
+
+    public void DeleteHumanById(int id)
+        => _repository.DeleteHumanById(id);
+
+    public Human GetHumanById(int id)
+        => _repository.GetHumanById(id);
+
+    public ICollection<Human> GetHumans()
+        => _repository.GetHumans();
+
+    public Human UpdateHuman(Human human)
+        => _repository.UpdateHuman(human);
+
+    public void ClearHumans()
+    {
+        var humans = _repository.GetHumans().ToList();
+
+        foreach (var human in humans)
         {
-            _repository = repository;
-        }
-
-        public Human AddHuman(Human human)
-        {
-            if (human == null)
-            {
-                throw new ArgumentNullException(nameof(human));
-            }
-
-            if (string.IsNullOrWhiteSpace(human.Name) || string.IsNullOrWhiteSpace(human.Surname))
-            {
-                throw new ArgumentException("Name and Surname cannot be empty");
-            }
-
-            return _repository.AddHuman(human);
-
-        }
-
-        // DONE: pobierz rekord z repozytorium o konkretnym id po czym go usuń
-        public void DeleteHumanById(int id)
-        {
-            _repository.DeleteHumanById(id);
-        }
-
-        // DONE: pobierz konkretny rekord o takim ID
-        public Human GetHumanById(int id)
-        {
-            return _repository.GetHumanById(id);
-        }
-
-        // DONE: pobierz wszystkich ludzi skurwysynów
-        public ICollection<Human> GetHumans()
-        {
-            return _repository.GetHumans();
-        }
-
-        // DONE: zaktualizuj czlwoeiczka
-        public Human UpdateHuman(Human human)
-        {
-            return _repository.UpdateHuman(human);
-        }
-
-        public void ClearHumans()
-        {
-            var humans = _repository.GetHumans().ToList();
-            foreach (var human in humans)
-            {
-                _repository.DeleteHumanById(human.Id);
-            }
+            _repository.DeleteHumanById(human.Id);
         }
     }
 }
