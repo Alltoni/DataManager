@@ -4,13 +4,15 @@ using DataManager.Models;
 
 namespace DataManager.Services;
 
+// TODO: widzialem ze zmieniles nazewnictwo metod, poczytaj konwencje nazewnictwa "ENDPOINTÓW" warto trzymac sie jednej wersji w przyszlsci
+//       żeby tez byla zrozumiala dla wszystkich https://learn.microsoft.com/en-us/aspnet/core/web-api/advanced/conventions?view=aspnetcore-8.0
 public class MenuService : IMenuService
 {
     private readonly IHumanService _humanService;
 
     public MenuService(IHumanService humanService)
     {
-        _humanService = humanService;
+        _humanService = humanService ?? throw new ArgumentNullException(nameof(humanService));
     }
 
     public void StartMenu()
@@ -59,13 +61,29 @@ public class MenuService : IMenuService
                         ClearHumans();
                         break;
                     case MenuOption.Exit:
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        Console.WriteLine(value: "Zamykanie programu...");
-                        Console.ResetColor();
+                        ExitProgram();
                         return;
+                    default:
+                        DefaultUserChoice();
+                        break;
                 }
             }
         }
+    }
+
+    private void ExitProgram()
+    {
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
+        Console.WriteLine(value: "Zamykanie programu...");
+        Console.ResetColor();
+    }
+
+    private void DefaultUserChoice()
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.BackgroundColor = ConsoleColor.White;
+        Console.WriteLine(value: "Proszę wprowadzić jakiś znak.");
+        Console.ResetColor();
     }
 
     private void AddHuman()
