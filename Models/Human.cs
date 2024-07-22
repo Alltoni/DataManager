@@ -7,9 +7,8 @@ public class Human
     public string Surname { get; set; }
     public string? Description { get; set; }
 
-    public Human(int id, string name, string surname, string? description = null)
+    public Human(string name, string surname, string? description = null)
     {
-        Id = id;
         Name = name;
         Surname = surname;
         Description = description ?? string.Empty;

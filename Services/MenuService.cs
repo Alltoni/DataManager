@@ -88,15 +88,15 @@ public class MenuService : IMenuService
 
     private void AddHuman()
     {
-        Console.Write(value: "Podaj Id: ");
-        string? idInput = Console.ReadLine();
-        if (!int.TryParse(idInput, out int idNumber))
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(value: "Id musi być liczbą!\n");
-            Console.ResetColor();
-            return;
-        }
+        //Console.Write(value: "Podaj Id: ");
+        //string? idInput = Console.ReadLine();
+        //if (!int.TryParse(idInput, out int idNumber))
+        //{
+        //    Console.ForegroundColor = ConsoleColor.Red;
+        //    Console.WriteLine(value: "Id musi być liczbą!\n");
+        //    Console.ResetColor();
+        //    return;
+        //}
 
         Console.Write(value: "Podaj imię: ");
         string? name = Console.ReadLine();
@@ -121,7 +121,7 @@ public class MenuService : IMenuService
         Console.Write(value: "Podaj opis (opcjonalny): ");
         string? description = Console.ReadLine();
 
-        var human = new Human(idNumber, name, surname, description);
+        var human = new Human(name, surname, description);
         _humanService.AddHuman(human);
 
         Console.ForegroundColor = ConsoleColor.Green;
