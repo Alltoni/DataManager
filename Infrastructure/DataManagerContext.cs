@@ -9,6 +9,6 @@ public class DataManagerContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(connectionString: "twój connection string");
+        optionsBuilder.UseSqlServer(connectionString: "Server=localhost;Database=DataManagerDb;Trusted_Connection=true;Encrypt=false");
     }
 }
