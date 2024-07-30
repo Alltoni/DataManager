@@ -1,6 +1,6 @@
 ﻿using DataManager.Models;
 
-namespace DataManager.Repositories;
+namespace DataManager.Repositories.HumanRepositories;
 
 public interface IHumanRepository
 {

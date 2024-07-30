@@ -1,7 +1,7 @@
 ﻿using DataManager.Infrastructure;
 using DataManager.Models;
 
-namespace DataManager.Repositories;
+namespace DataManager.Repositories.HumanRepositories;
 
 public class HumanRepository : IHumanRepository
 {

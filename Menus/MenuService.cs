@@ -1,11 +1,11 @@
 ﻿using System.Text;
 using DataManager.Enums;
 using DataManager.Models;
+using DataManager.Services.HumanServices;
 
-namespace DataManager.Services;
+namespace DataManager.Menus;
 
-// TODO: widzialem ze zmieniles nazewnictwo metod, poczytaj konwencje nazewnictwa "ENDPOINTÓW" warto trzymac sie jednej wersji w przyszlsci
-//       żeby tez byla zrozumiala dla wszystkich https://learn.microsoft.com/en-us/aspnet/core/web-api/advanced/conventions?view=aspnetcore-8.0
+
 public class MenuService : IMenuService
 {
     private readonly IHumanService _humanService;
@@ -14,6 +14,8 @@ public class MenuService : IMenuService
     {
         _humanService = humanService ?? throw new ArgumentNullException(nameof(humanService));
     }
+
+
 
     public void StartMenu()
     {
@@ -71,14 +73,14 @@ public class MenuService : IMenuService
         }
     }
 
-    private void ExitProgram()
+    public void ExitProgram()
     {
         Console.ForegroundColor = ConsoleColor.DarkYellow;
         Console.WriteLine(value: "Zamykanie programu...");
         Console.ResetColor();
     }
 
-    private void DefaultUserChoice()
+    public void DefaultUserChoice()
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.BackgroundColor = ConsoleColor.White;
@@ -86,17 +88,8 @@ public class MenuService : IMenuService
         Console.ResetColor();
     }
 
-    private void AddHuman()
+    public void AddHuman()
     {
-        //Console.Write(value: "Podaj Id: ");
-        //string? idInput = Console.ReadLine();
-        //if (!int.TryParse(idInput, out int idNumber))
-        //{
-        //    Console.ForegroundColor = ConsoleColor.Red;
-        //    Console.WriteLine(value: "Id musi być liczbą!\n");
-        //    Console.ResetColor();
-        //    return;
-        //}
 
         Console.Write(value: "Podaj imię: ");
         string? name = Console.ReadLine();
@@ -129,7 +122,7 @@ public class MenuService : IMenuService
         Console.ResetColor();
     }
 
-    private void DeleteHuman()
+    public void DeleteHuman()
     {
         Console.Write(value: "Podaj Id osoby, którą chcesz usunąć z listy: ");
         string? deleteInput = Console.ReadLine();
@@ -158,7 +151,7 @@ public class MenuService : IMenuService
         }
     }
 
-    private void ViewHumans()
+    public void ViewHumans()
     {
         var humans = _humanService.GetHumans();
         foreach (var human in humans)
@@ -168,7 +161,7 @@ public class MenuService : IMenuService
         }
     }
 
-    private void ClearHumans()
+    public void ClearHumans()
     {
         _humanService.ClearHumans();
         Console.ForegroundColor = ConsoleColor.Green;

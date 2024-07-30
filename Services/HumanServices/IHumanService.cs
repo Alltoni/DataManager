@@ -1,6 +1,6 @@
 ﻿using DataManager.Models;
 
-namespace DataManager.Services;
+namespace DataManager.Services.HumanServices;
 
 public interface IHumanService
 {

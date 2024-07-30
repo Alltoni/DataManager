@@ -1,14 +1,14 @@
 ﻿using DataManager.Models;
-using DataManager.Repositories;
+using DataManager.Repositories.HumanRepositories;
 
-namespace DataManager.Services;
+namespace DataManager.Services.HumanServices;
 
 public class HumanService : IHumanService
 {
     private readonly IHumanRepository _repository;
 
     public HumanService(IHumanRepository repository)
-        => (_repository) = (repository);
+        => _repository = repository;
 
     public Human AddHuman(Human human)
     {
