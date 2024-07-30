@@ -15,6 +15,11 @@ public class Program
         {
             IHumanRepository humanRepository = new HumanRepository(dataContext);
             IHumanService humanService = new HumanService(humanRepository);
+            IAnimalRepository animalRepository = new AnimalRepository(dataContext);
+            IAnimalService animalService = new AnimalService(animalRepository);
+            
+
+
             MenuService menuService = new MenuService(humanService);
 
             menuService.StartMenu();
