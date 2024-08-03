@@ -20,6 +20,16 @@ namespace DataManager.Services.AnimalServices
             {
                 string animalName = "cheetah";
                 var animalData = await GetAnimalData(animalName);
+
+                // ScientificName nie dziala ale to chyba wina api bo reszta dziala
+
+                foreach (var animal in animalData)
+                {
+                    Console.WriteLine($"Animal: {animal.Name}");
+                    Console.WriteLine($"Scientific Name: {animal.Taxonomy.ScientificName}");
+                    Console.WriteLine($"Class: {animal.Taxonomy.Class}");
+                    Console.WriteLine($"Habitat: {animal.Characteristics.Habitat}");
+                }
             }
             catch (Exception e)
             {
@@ -27,7 +37,7 @@ namespace DataManager.Services.AnimalServices
             }
         }
 
-        public static async Task<Animal> GetAnimalData(string animalName)
+        public static async Task<List<Animal>> GetAnimalData(string animalName)
         {
             client.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
 
@@ -35,7 +45,7 @@ namespace DataManager.Services.AnimalServices
             response.EnsureSuccessStatusCode();
 
             var responseString = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<Animal>(responseString);
+            return JsonConvert.DeserializeObject<List<Animal>>(responseString);
         }
     }
 }
