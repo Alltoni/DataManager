@@ -19,6 +19,8 @@ namespace DataManager.Models
         public string Order { get; set; }
         public string Family { get; set; }
         public string Genus { get; set; }
+
+        [JsonProperty(propertyName: "scientific_name")]
         public string ScientificName { get; set; }
     }
 
