@@ -6,6 +6,7 @@ namespace DataManager.Infrastructure;
 public class DataManagerContext : DbContext
 {
     public DbSet<Human> Humans { get; set; }
+    public DbSet<Animal> Animals { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

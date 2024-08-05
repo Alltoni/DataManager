@@ -1,10 +1,12 @@
 ﻿using System.Net.Http;
 using Newtonsoft.Json;
 
+
 namespace DataManager.Models
 {
     public class Animal
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public Taxonomy Taxonomy { get; set; }
         public List<string> Locations { get; set; }
@@ -12,7 +14,7 @@ namespace DataManager.Models
     }
 
     public class Taxonomy
-    {
+        {
         public string Kingdom { get; set; }
         public string Phylum { get; set; }
         public string Class { get; set; }
@@ -22,7 +24,7 @@ namespace DataManager.Models
 
         [JsonProperty(propertyName: "scientific_name")]
         public string ScientificName { get; set; }
-    }
+        }
 
     public class Characteristics
     {
