@@ -3,21 +3,21 @@ using DataManager.Enums;
 using DataManager.Models;
 using DataManager.Services.HumanServices;
 
-namespace DataManager.Menus;
+namespace DataManager.Services.Menus;
 
 
-public class MenuService : IMenuService
+public class HumanMenuService : IHumanMenuService
 {
     private readonly IHumanService _humanService;
 
-    public MenuService(IHumanService humanService)
+    public HumanMenuService(IHumanService humanService)
     {
         _humanService = humanService ?? throw new ArgumentNullException(nameof(humanService));
     }
 
 
 
-    public void StartMenu()
+    public void StartHumanMenu()
     {
         while (true)
         {
@@ -36,7 +36,7 @@ public class MenuService : IMenuService
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(value: $"Wprowadzony znak jest pusty lub nieprawidłowy. \n");
-                StartMenu();
+                StartHumanMenu();
             }
 
             if (!int.TryParse(input, out int userNumber) || userNumber < 1 || userNumber > 5)
@@ -46,23 +46,23 @@ public class MenuService : IMenuService
                 continue;
             }
 
-            if (Enum.IsDefined(typeof(MenuOption), userNumber))
+            if (Enum.IsDefined(typeof(HumanMenuOption), userNumber))
             {
-                switch ((MenuOption)userNumber)
+                switch ((HumanMenuOption)userNumber)
                 {
-                    case MenuOption.Add:
+                    case HumanMenuOption.Add:
                         AddHuman();
                         break;
-                    case MenuOption.Delete:
+                    case HumanMenuOption.Delete:
                         DeleteHuman();
                         break;
-                    case MenuOption.View:
+                    case HumanMenuOption.View:
                         ViewHumans();
                         break;
-                    case MenuOption.Clear:
+                    case HumanMenuOption.Clear:
                         ClearHumans();
                         break;
-                    case MenuOption.Exit:
+                    case HumanMenuOption.Exit:
                         ExitProgram();
                         return;
                     default:
@@ -78,6 +78,7 @@ public class MenuService : IMenuService
         Console.ForegroundColor = ConsoleColor.DarkYellow;
         Console.WriteLine(value: "Zamykanie programu...");
         Console.ResetColor();
+        Environment.Exit(0);
     }
 
     public void DefaultUserChoice()

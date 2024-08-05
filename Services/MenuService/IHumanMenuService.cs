@@ -1,9 +1,8 @@
-﻿namespace DataManager.Menus;
+﻿namespace DataManager.Services.Menus;
 
-// DONE: uzupelnić o metody
-public interface IMenuService
+public interface IHumanMenuService
 {
-    public void StartMenu();
+    public void StartHumanMenu();
     public void ExitProgram();
     public void DefaultUserChoice();
     public void AddHuman();
