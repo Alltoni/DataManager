@@ -1,28 +1,40 @@
 ﻿using DataManager.Infrastructure;
-using DataManager.Repositories;
-using DataManager.Services;
+using DataManager.Repositories.HumanRepositories;
+using DataManager.Services.HumanServices;
+using DataManager.Services.AnimalServices;
+using DataManager.Repositories.AnimalRepositories;
+using System.Text;
+using System.Threading.Channels;
+using DataManager.Services.Menus;
+
 
 namespace DataManager;
 
 public class Program
 {
+    //static async Task Main(string[] args)
+    //{
+    //    await AnimalService.AnimalScan(args);
+    //}
+
     static void Main(string[] args)
     {
-        using var dataContext = new DataManagerContext();
-        bool isAppRunning = true;
+        MainMenuService mainMenu = new MainMenuService();
+        mainMenu.StartMenu();
 
-        while (isAppRunning)
-        {
-            IHumanRepository humanRepository = new HumanRepository(dataContext);
-            IHumanService humanService = new HumanService(humanRepository);
-            IAnimalRepository animalRepository = new AnimalRepository(dataContext);
-            IAnimalService animalService = new AnimalService(animalRepository);
-            
+        //using var dataContext = new DataManagerContext();
+        //bool isAppRunning = true;
 
 
-            MenuService menuService = new MenuService(humanService);
+        //while (isAppRunning)
+        //{
+        //    IHumanRepository humanRepository = new HumanRepository(dataContext);
+        //    IHumanService humanService = new HumanService(humanRepository);
+        //    MenuService menuService = new MenuService(humanService);
 
-            menuService.StartMenu();
-        }
+        //    menuService.StartMenu();
+        //}
     }
+
+
 }

@@ -1,21 +1,23 @@
 ﻿using System.Text;
 using DataManager.Enums;
 using DataManager.Models;
+using DataManager.Services.HumanServices;
 
-namespace DataManager.Services;
+namespace DataManager.Services.Menus;
 
-// TODO: widzialem ze zmieniles nazewnictwo metod, poczytaj konwencje nazewnictwa "ENDPOINTÓW" warto trzymac sie jednej wersji w przyszlsci
-//       żeby tez byla zrozumiala dla wszystkich https://learn.microsoft.com/en-us/aspnet/core/web-api/advanced/conventions?view=aspnetcore-8.0
-public class MenuService : IMenuService
+
+public class HumanMenuService : IHumanMenuService
 {
     private readonly IHumanService _humanService;
 
-    public MenuService(IHumanService humanService)
+    public HumanMenuService(IHumanService humanService)
     {
         _humanService = humanService ?? throw new ArgumentNullException(nameof(humanService));
     }
 
-    public void StartMenu()
+
+
+    public void StartHumanMenu()
     {
         while (true)
         {
@@ -34,7 +36,7 @@ public class MenuService : IMenuService
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(value: $"Wprowadzony znak jest pusty lub nieprawidłowy. \n");
-                StartMenu();
+                StartHumanMenu();
             }
 
             if (!int.TryParse(input, out int userNumber) || userNumber < 1 || userNumber > 5)
@@ -44,23 +46,23 @@ public class MenuService : IMenuService
                 continue;
             }
 
-            if (Enum.IsDefined(typeof(MenuOption), userNumber))
+            if (Enum.IsDefined(typeof(HumanMenuOption), userNumber))
             {
-                switch ((MenuOption)userNumber)
+                switch ((HumanMenuOption)userNumber)
                 {
-                    case MenuOption.Add:
+                    case HumanMenuOption.Add:
                         AddHuman();
                         break;
-                    case MenuOption.Delete:
+                    case HumanMenuOption.Delete:
                         DeleteHuman();
                         break;
-                    case MenuOption.View:
+                    case HumanMenuOption.View:
                         ViewHumans();
                         break;
-                    case MenuOption.Clear:
+                    case HumanMenuOption.Clear:
                         ClearHumans();
                         break;
-                    case MenuOption.Exit:
+                    case HumanMenuOption.Exit:
                         ExitProgram();
                         return;
                     default:
@@ -71,14 +73,15 @@ public class MenuService : IMenuService
         }
     }
 
-    private void ExitProgram()
+    public void ExitProgram()
     {
         Console.ForegroundColor = ConsoleColor.DarkYellow;
         Console.WriteLine(value: "Zamykanie programu...");
         Console.ResetColor();
+        Environment.Exit(0);
     }
 
-    private void DefaultUserChoice()
+    public void DefaultUserChoice()
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.BackgroundColor = ConsoleColor.White;
@@ -86,17 +89,8 @@ public class MenuService : IMenuService
         Console.ResetColor();
     }
 
-    private void AddHuman()
+    public void AddHuman()
     {
-        //Console.Write(value: "Podaj Id: ");
-        //string? idInput = Console.ReadLine();
-        //if (!int.TryParse(idInput, out int idNumber))
-        //{
-        //    Console.ForegroundColor = ConsoleColor.Red;
-        //    Console.WriteLine(value: "Id musi być liczbą!\n");
-        //    Console.ResetColor();
-        //    return;
-        //}
 
         Console.Write(value: "Podaj imię: ");
         string? name = Console.ReadLine();
@@ -129,7 +123,7 @@ public class MenuService : IMenuService
         Console.ResetColor();
     }
 
-    private void DeleteHuman()
+    public void DeleteHuman()
     {
         Console.Write(value: "Podaj Id osoby, którą chcesz usunąć z listy: ");
         string? deleteInput = Console.ReadLine();
@@ -158,7 +152,7 @@ public class MenuService : IMenuService
         }
     }
 
-    private void ViewHumans()
+    public void ViewHumans()
     {
         var humans = _humanService.GetHumans();
         foreach (var human in humans)
@@ -168,7 +162,7 @@ public class MenuService : IMenuService
         }
     }
 
-    private void ClearHumans()
+    public void ClearHumans()
     {
         _humanService.ClearHumans();
         Console.ForegroundColor = ConsoleColor.Green;
