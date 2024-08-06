@@ -46,23 +46,23 @@ public class HumanMenuService : IHumanMenuService
                 continue;
             }
 
-            if (Enum.IsDefined(typeof(HumanMenuOption), userNumber))
+            if (Enum.IsDefined(typeof(HumanMenuOptions), userNumber))
             {
-                switch ((HumanMenuOption)userNumber)
+                switch ((HumanMenuOptions)userNumber)
                 {
-                    case HumanMenuOption.Add:
+                    case HumanMenuOptions.Add:
                         AddHuman();
                         break;
-                    case HumanMenuOption.Delete:
+                    case HumanMenuOptions.Delete:
                         DeleteHuman();
                         break;
-                    case HumanMenuOption.View:
+                    case HumanMenuOptions.View:
                         ViewHumans();
                         break;
-                    case HumanMenuOption.Clear:
+                    case HumanMenuOptions.Clear:
                         ClearHumans();
                         break;
-                    case HumanMenuOption.Exit:
+                    case HumanMenuOptions.Exit:
                         ExitProgram();
                         return;
                     default:

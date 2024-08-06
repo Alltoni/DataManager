@@ -3,11 +3,7 @@ using DataManager.Infrastructure;
 using DataManager.Repositories.HumanRepositories;
 using DataManager.Services.HumanServices;
 using DataManager.Services.MenuService;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace DataManager.Services.Menus
 {
@@ -50,7 +46,7 @@ namespace DataManager.Services.Menus
                             MoveToHuman();
                             break;
                         case MainMenuOptions.MoveToAnimal:
-                            // idziemy do animalMenu
+                            MoveToAnimal();
                             break;
                         case MainMenuOptions.MoreInfo:
                             MoreInfo();
@@ -82,10 +78,18 @@ namespace DataManager.Services.Menus
                 IHumanService humanService = new HumanService(humanRepository);
                 HumanMenuService menuService = new HumanMenuService(humanService);
 
-                menuService.StarHumantMenu();
+                menuService.StartHumanMenu();
 
             }
         }
+
+        private void MoveToAnimal()
+        {
+            AnimalMenu animalMenu = new AnimalMenu();
+            animalMenu.StartAnimalMenu();
+        }
+
+
         private void MoreInfo()
         {
             StringBuilder moreInfo = new StringBuilder();
