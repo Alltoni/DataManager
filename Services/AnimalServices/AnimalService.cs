@@ -14,14 +14,12 @@ namespace DataManager.Services.AnimalServices
         public const string apiUrl = "https://api.api-ninjas.com/v1/animals";
 
 
-        public static async Task AnimalScan(string[] args)
+        public async Task AnimalScan(string animalName)
         {
             try
             {
-                string animalName = "cheetah";
                 var animalData = await GetAnimalData(animalName);
 
-                // ScientificName nie dziala ale to chyba wina api bo reszta dziala
 
                 foreach (var animal in animalData)
                 {
@@ -29,7 +27,10 @@ namespace DataManager.Services.AnimalServices
                     Console.WriteLine($"Scientific Name: {animal.Taxonomy.ScientificName}");
                     Console.WriteLine($"Class: {animal.Taxonomy.Class}");
                     Console.WriteLine($"Habitat: {animal.Characteristics.Habitat}");
+                    break;
                 }
+
+
             }
             catch (Exception e)
             {

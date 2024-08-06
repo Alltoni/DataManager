@@ -1,6 +1,6 @@
 ﻿namespace DataManager.Enums;
 
-enum HumanMenuOption
+enum HumanMenuOptions
 {
     Add = 1,
     Delete = 2,
