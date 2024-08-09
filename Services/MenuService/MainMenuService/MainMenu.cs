@@ -1,18 +1,25 @@
 ﻿using DataManager.Enums;
 using DataManager.Infrastructure;
+using DataManager.Repositories.AnimalRepositories;
 using DataManager.Repositories.HumanRepositories;
+using DataManager.Services.AnimalServices;
 using DataManager.Services.HumanServices;
-using DataManager.Services.MenuService;
+using DataManager.Services.MenuService.AnimalMenuService;
+using DataManager.Services.MenuService.HumanMenuService;
 using System.Text;
 
-namespace DataManager.Services.Menus
+namespace DataManager.Services.MenuService.MainMenuService
 {
-    public class MainMenuService : IMainMenuService
+    public class MainMenu : IMainMenu
     {
-        public void StartMenu()
+        bool isRunning = true;
+
+        public async Task StartMenu()
         {
-            while (true)
+
+            while (isRunning)
             {
+                //Console.Clear();
                 StringBuilder sb = new StringBuilder();
                 sb.Append("Witaj w naszej aplikacji! \n" +
                           "Kliknij \"1\" aby przejść do Bazy danych \"Human\". \n" +
@@ -28,7 +35,7 @@ namespace DataManager.Services.Menus
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(value: $"Wprowadzony znak jest pusty lub nieprawidłowy. \n");
-                    StartMenu();
+                    continue;
                 }
                 if (!int.TryParse(input, out int userNumber) || userNumber < 1 || userNumber > 4)
                 {
@@ -46,17 +53,15 @@ namespace DataManager.Services.Menus
                             MoveToHuman();
                             break;
                         case MainMenuOptions.MoveToAnimal:
-                            MoveToAnimal();
+                            await MoveToAnimal();
                             break;
                         case MainMenuOptions.MoreInfo:
                             MoreInfo();
                             break;
                         case MainMenuOptions.Exit:
-                            // wyjscie z programu, moze jakos wykorzystac klase ExitProgram z HumanMenuService
-                            Environment.Exit(0);
+                            isRunning = false;
                             break;
                         default:
-                            // klasa DefaultUserChoice z HumanMenuService
                             break;
 
                     }
@@ -70,23 +75,21 @@ namespace DataManager.Services.Menus
         public void MoveToHuman()
         {
             using var dataContext = new DataManagerContext();
-            bool isAppRunning = true;
+            IHumanRepository humanRepository = new HumanRepository(dataContext);
+            IHumanService humanService = new HumanService(humanRepository);
+            HumanMenu menuService = new HumanMenu(humanService);
 
-            while (isAppRunning)
-            {
-                IHumanRepository humanRepository = new HumanRepository(dataContext);
-                IHumanService humanService = new HumanService(humanRepository);
-                HumanMenuService menuService = new HumanMenuService(humanService);
-
-                menuService.StartHumanMenu();
-
-            }
+            menuService.StartHumanMenu();
         }
 
-        private void MoveToAnimal()
+        private async Task MoveToAnimal()
         {
-            AnimalMenu animalMenu = new AnimalMenu();
-            animalMenu.StartAnimalMenu();
+            using var dataContext = new DataManagerContext();
+            IAnimalRepository animalRepository = new AnimalRepository(dataContext);
+            IAnimalService animalService = new AnimalService(animalRepository);
+
+            AnimalMenu animalMenu = new AnimalMenu(animalService);
+            await animalMenu.StartAnimalMenu();
         }
 
 
@@ -100,6 +103,8 @@ namespace DataManager.Services.Menus
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine(moreInfo);
             Console.ResetColor();
+            Console.WriteLine("Naciśnij dowolny klawisz, aby wrócić do głównego menu...");
+            Console.ReadKey();
         }
     }
 }

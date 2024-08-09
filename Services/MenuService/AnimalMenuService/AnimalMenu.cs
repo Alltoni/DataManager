@@ -1,21 +1,31 @@
 ﻿using DataManager.Enums;
+using DataManager.Models;
 using DataManager.Services.AnimalServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 
-namespace DataManager.Services.MenuService
+namespace DataManager.Services.MenuService.AnimalMenuService
 {
-    public class AnimalMenu //: IAnimalMenu
+    public class AnimalMenu : IAnimalMenu
     {
+        private readonly IAnimalService _animalService;
 
-
-        public void StartAnimalMenu()
+        public AnimalMenu(IAnimalService animalService)
         {
-            while (true)
+            _animalService = animalService ?? throw new ArgumentNullException(nameof(animalService));
+        }
+
+        public async Task StartAnimalMenu()
+        {
+            bool isRunning = true;
+
+            while (isRunning)
             {
+                // Console.Clear();
                 StringBuilder sb = new StringBuilder();
                 sb.Append("Katalog zwierząt \n" +
                           "Podaj nazwę zwierzęcia, które Cie interesuje: ");
@@ -23,8 +33,8 @@ namespace DataManager.Services.MenuService
                 Console.WriteLine(sb);
                 Console.ResetColor();
 
-                string? input = Console.ReadLine();
-                if (string.IsNullOrEmpty(input))
+                string? animalName = Console.ReadLine();
+                if (string.IsNullOrEmpty(animalName))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(value: $"Wprowadzony znak jest pusty lub nieprawidłowy. \n");
@@ -32,7 +42,8 @@ namespace DataManager.Services.MenuService
 
                 }
 
-                if (int.TryParse(input, out int userNumber))
+
+                if (int.TryParse(animalName, out int userNumber))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine($"Zwierzę nie może być liczbą... \n");
@@ -40,9 +51,16 @@ namespace DataManager.Services.MenuService
                     continue;
 
                 }
-                //TODO: ogarnać to
-                AnimalService animalService = new AnimalService();
-                animalService.AnimalScan(input);
+                //Działa tylko jeden raz xd pozniej nie wyszukuje zwierzecia
+                var animal = await _animalService.GetAnimalByName(animalName);
+                if (animal == null)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Nie znaleziono zwierzęcia o podanej nazwie.\n");
+                    continue;
+                }
+                Console.WriteLine($"Znaleziono: {animal.Name} ({animal.Taxonomy.ScientificName})");
+
 
                 StringBuilder sb2 = new StringBuilder();
                 sb2.Append("Kliknij \"1\" aby wyświetlić taksonomie wybranego zwierzęcia. \n" +
@@ -51,16 +69,16 @@ namespace DataManager.Services.MenuService
                            "Kliknij \"4\" aby powrócić do głównego menu \n");
 
                 Console.WriteLine(sb2);
-                string? input2 = Console.ReadLine();
+                string input = Console.ReadLine();
 
-                if (string.IsNullOrEmpty(input2))
+                if (string.IsNullOrEmpty(input))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(value: $"Wprowadzony znak jest pusty lub nieprawidłowy. \n");
                     continue;
                 }
 
-                if (!int.TryParse(input2, out int userNumber2) || userNumber2 < 1 || userNumber2 > 5)
+                if (!int.TryParse(input, out int userNumber2) || userNumber2 < 1 || userNumber2 > 5)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(value: "Wprowadzona liczba jest nieprawidłowa.\n");
@@ -73,16 +91,15 @@ namespace DataManager.Services.MenuService
                     switch ((AnimalMenuOptions)userNumber2)
                     {
                         case AnimalMenuOptions.Taksonomy:
-                            ShowTaksonomy();
+                            ShowTaxonomy(animal.Taxonomy);
                             break;
                         case AnimalMenuOptions.Characteristic:
-                            ShowCharacteristic();
+                            ShowCharacteristic(animal.Characteristics);
                             break;
                         case AnimalMenuOptions.AnotherAnimal:
-                            StartAnimalMenu();
-                            break;
+                            continue;
                         case AnimalMenuOptions.Return:
-                            ReturnToMainMenu();
+                            isRunning = false;
                             break;
 
                     }
@@ -90,20 +107,27 @@ namespace DataManager.Services.MenuService
 
             }
         }
-        //TODO: uzupełnic metody
-        private void ReturnToMainMenu()
+
+        
+
+        private void ShowTaxonomy(Taxonomy taxonomy)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Królestwo: {taxonomy.Kingdom}");
+            Console.WriteLine($"Typ: {taxonomy.Phylum}");
+            Console.WriteLine($"Gromada: {taxonomy.Class}");
+            Console.WriteLine($"Rząd: {taxonomy.Order}");
+            Console.WriteLine($"Rodzina: {taxonomy.Family}");
+            Console.WriteLine($"Rodzaj: {taxonomy.Genus}");
+            Console.WriteLine($"Nazwa naukowa: {taxonomy.ScientificName}");
         }
 
-        private void ShowCharacteristic()
+        //TODO: charakterystyka nie dziala
+        private void ShowCharacteristic(Characteristics characteristics)
         {
-            throw new NotImplementedException();
-        }
-
-        private void ShowTaksonomy()
-        {
-            throw new NotImplementedException();
+            Console.WriteLine($"Pożywienie: {characteristics.Prey}");
+            Console.WriteLine($"Nazwa młodych: {characteristics.NameOfYoung}");
+            Console.WriteLine($"Zachowanie grupowe: {characteristics.GroupBehavior}");
+            
         }
     }
 

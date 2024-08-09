@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//TODO: uzupelnic
-namespace DataManager.Services.MenuService
+
+namespace DataManager.Services.MenuService.AnimalMenuService
 {
-    internal interface IMainMenuService
+    //TODO: Uzupełnić
+    public interface IAnimalMenu
     {
     }
 }
