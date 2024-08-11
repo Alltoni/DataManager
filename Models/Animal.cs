@@ -28,8 +28,13 @@ namespace DataManager.Models
 
     public class Characteristics
     {
+        [JsonProperty(propertyName: "main_prey")]
         public string Prey { get; set; }
+
+        [JsonProperty(propertyName: "name_of_young")]
         public string NameOfYoung { get; set; }
+
+        [JsonProperty(propertyName: "group_behavior")]
         public string GroupBehavior { get; set; }
         public string EstimatedPopulationSize { get; set; }
         public string BiggestThreat { get; set; }
@@ -45,6 +50,8 @@ namespace DataManager.Models
         public string Slogan { get; set; }
         public string Group { get; set; }
         public string Color { get; set; }
+
+        [JsonProperty(propertyName: "skin_type")]
         public string SkinType { get; set; }
         public string TopSpeed { get; set; }
         public string Lifespan { get; set; }

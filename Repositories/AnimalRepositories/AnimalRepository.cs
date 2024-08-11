@@ -21,7 +21,10 @@ namespace DataManager.Repositories.AnimalRepositories
 
         public async Task<Animal?> GetAnimalByName(string animalName)
         {
-            client.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
+            if (!client.DefaultRequestHeaders.Contains("X-Api-Key"))
+            {
+                client.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
+            }
 
             var response = await client.GetAsync($"{apiUrl}?name={animalName}");
             if (!response.IsSuccessStatusCode)

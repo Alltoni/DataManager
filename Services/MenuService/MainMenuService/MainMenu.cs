@@ -19,7 +19,7 @@ namespace DataManager.Services.MenuService.MainMenuService
 
             while (isRunning)
             {
-                //Console.Clear();
+                Console.Clear();
                 StringBuilder sb = new StringBuilder();
                 sb.Append("Witaj w naszej aplikacji! \n" +
                           "Kliknij \"1\" aby przejść do Bazy danych \"Human\". \n" +
@@ -34,13 +34,17 @@ namespace DataManager.Services.MenuService.MainMenuService
                 if (string.IsNullOrEmpty(input))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(value: $"Wprowadzony znak jest pusty lub nieprawidłowy. \n");
+                    Console.WriteLine(value: $"Wprowadzony znak jest pusty lub nieprawidłowy.");
+                    Console.WriteLine($"Kliknij cokolwiek aby kontynuować");
+                    Console.ReadKey();
                     continue;
                 }
                 if (!int.TryParse(input, out int userNumber) || userNumber < 1 || userNumber > 4)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(value: "Wprowadzona liczba jest nieprawidłowa.\n");
+                    Console.WriteLine(value: "Wprowadzona liczba jest nieprawidłowa.");
+                    Console.WriteLine($"Kliknij cokolwiek aby kontynuować");
+                    Console.ReadKey();
                     continue;
 
                 }

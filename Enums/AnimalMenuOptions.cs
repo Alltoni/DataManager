@@ -8,9 +8,7 @@ namespace DataManager.Enums
 {
     enum AnimalMenuOptions
     {
-        Taksonomy = 1,
-        Characteristic = 2,
-        AnotherAnimal = 3,
-        Return = 4,
+        AnotherAnimal = 1,
+        Return = 2,
     }
 }
