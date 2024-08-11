@@ -1,6 +1,6 @@
-﻿namespace DataManager.Services.Menus;
+﻿namespace DataManager.Services.MenuService.HumanMenuService;
 
-public interface IHumanMenuService
+public interface IHumanMenu
 {
     public void StartHumanMenu();
     public void ExitProgram();

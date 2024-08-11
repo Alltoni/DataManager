@@ -3,14 +3,14 @@ using DataManager.Enums;
 using DataManager.Models;
 using DataManager.Services.HumanServices;
 
-namespace DataManager.Services.Menus;
+namespace DataManager.Services.MenuService.HumanMenuService;
 
 
-public class HumanMenuService : IHumanMenuService
+public class HumanMenu : IHumanMenu
 {
     private readonly IHumanService _humanService;
 
-    public HumanMenuService(IHumanService humanService)
+    public HumanMenu(IHumanService humanService)
     {
         _humanService = humanService ?? throw new ArgumentNullException(nameof(humanService));
     }

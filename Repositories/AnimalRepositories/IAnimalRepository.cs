@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DataManager.Enums;
+using DataManager.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,10 @@ using System.Threading.Tasks;
 
 namespace DataManager.Repositories.AnimalRepositories
 {
-    internal interface IAnimalRepository
+    public interface IAnimalRepository
     {
+        Task<Animal?> GetAnimalByName(string name);
+
+
     }
 }
