@@ -13,3 +13,5 @@ public class DataManagerContext : DbContext
         optionsBuilder.UseSqlServer(connectionString: "Server=localhost;Database=DataManagerDb;Trusted_Connection=true;Encrypt=false");
     }
 }
+
+

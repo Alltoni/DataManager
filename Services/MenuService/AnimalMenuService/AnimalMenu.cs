@@ -109,16 +109,17 @@ namespace DataManager.Services.MenuService.AnimalMenuService
             StringBuilder animalCharacteristics = new StringBuilder();
             animalFound.Append($"Znaleziono: {animal.Name} ({animal.Taxonomy.ScientificName})\n");
 
-            animalTaksonomy.Append($"Królestwo: {animal.Taxonomy.Kingdom}\n" +
-                                   $"Typ: {animal.Taxonomy.Phylum}\n" +
-                                   $"Gromada: {animal.Taxonomy.Class}\n" +
-                                   $"Rząd: {animal.Taxonomy.Order}\n" +
-                                   $"Rodzina: {animal.Taxonomy.Family}\n" +
-                                   $"Rodzaj: {animal.Taxonomy.Genus}\n");
+            animalTaksonomy.Append($"Królestwo: {ValidateProperty(animal.Taxonomy.Kingdom)}\n" +
+                            $"Typ: {ValidateProperty(animal.Taxonomy.Phylum)}\n" +
+                            $"Gromada: {ValidateProperty(animal.Taxonomy.Class)}\n" +
+                            $"Rząd: {ValidateProperty(animal.Taxonomy.Order)}\n" +
+                            $"Rodzina: {ValidateProperty(animal.Taxonomy.Family)}\n" +
+                            $"Rodzaj: {ValidateProperty(animal.Taxonomy.Genus)}\n");
 
-            animalCharacteristics.Append($"Dieta: {animal.Characteristics.Diet}\n" +
-                                   $"Typ skóry: {animal.Characteristics.SkinType}\n" +
-                                   $"Średnia życia: {animal.Characteristics.Lifespan}\n");
+            animalCharacteristics.Append($"Dieta: {ValidateProperty(animal.Characteristics.Diet)}\n" +
+                           $"Typ skóry: {ValidateProperty(animal.Characteristics.SkinType)}\n" +
+                           $"Średnia życia: {ValidateProperty(animal.Characteristics.Lifespan)}\n");
+
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(animalFound);
@@ -130,6 +131,11 @@ namespace DataManager.Services.MenuService.AnimalMenuService
             Console.WriteLine("Charakterystyka:");
             Console.ResetColor();
             Console.WriteLine(animalCharacteristics);
+        }
+
+        private string ValidateProperty(string? property)
+        {
+            return string.IsNullOrEmpty(property) ? "Not in database" : property;
         }
 
         private bool IsZero(string? animalName)
