@@ -1,6 +1,7 @@
 # What's this?
 
 This is Data Manager, you can add, remove, list human data and view it in SQL.
+
 This program also contains AnimalScan function, you can type any animal in the console and you will get some informations about animal if it's found in api database.
 
 
