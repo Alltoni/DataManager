@@ -7,9 +7,11 @@ This program also contains AnimalScan function, you can type any animal in the c
 
 * SQL basics
 * Connecting to server
+* Migrations
 * Some CQRS
 * Basic programming skills/solutions
 * Some working with API
 * Asynchronic classes and methods
+* Clean programming standarts in practise
   
   
