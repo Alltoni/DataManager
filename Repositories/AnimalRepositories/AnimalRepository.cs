@@ -8,8 +8,8 @@ namespace DataManager.Repositories.AnimalRepositories
     public class AnimalRepository : IAnimalRepository
     {
         public static readonly HttpClient client = new HttpClient();
-        public const string apiKey = "zp81RtZ0/jhnqn0eJNtHXA==9hcY4Bqg0H03FcTL";
-        public const string apiUrl = "https://api.api-ninjas.com/v1/animals";
+        public const string apiKey = "";
+        public const string apiUrl = "";
 
         private readonly DataManagerContext _context;
 
